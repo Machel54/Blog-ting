@@ -11,4 +11,6 @@ def index():
     '''
     title = 'Home - Blog yeah'
 
-    return render_template('index.html')
+    return render_template('index.html', title = title)
+
+
