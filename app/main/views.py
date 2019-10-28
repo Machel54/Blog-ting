@@ -2,8 +2,8 @@ from flask import render_template,redirect,url_for,request
 from . import main
 from flask_bootstrap import Bootstrap
 from flask_login import login_required
-from ..models import User
-from .forms import UpdateProfile
+from ..models import User,Blog,Comment
+from .forms import UpdateProfile,BlogForm,CommentForm
 from .. import db,photos
 
 # Views
