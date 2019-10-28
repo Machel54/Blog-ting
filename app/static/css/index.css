@@ -87,3 +87,9 @@ section .star.star8{
         transform: scale(2);
     }
 }
+.navbar{
+    background:linear-gradient(to right,#a18cd1,#fbc2eb,#a18cd1);
+}
+.navbar:hover{
+    background-position-x: 100%;
+}
