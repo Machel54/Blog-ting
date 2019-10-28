@@ -22,7 +22,12 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
-
+    blogs = db.relationship('Blog',backref = 'users',lazy="dynamic")
+    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
+        
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -48,3 +53,49 @@ class Blog(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
+    comments = db.relationship('Comment',backref =  'blog_id',lazy = "dynamic")
+    
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_blog(cls,id):
+        blog = Blog.query.filter_by(id=id).first()
+
+        return blog
+    
+    @classmethod
+    def get_all_blogs(cls):
+        '''
+        Function that queries the database and returns all the pitches
+        '''
+        return Blog.query.all()
+
+    @classmethod
+    def count_blogs(cls,uname):
+        user = User.query.filter_by(username=uname).first()
+        blogs = Blog.query.filter_by(user_id=user.id).all()
+
+        blogs_count = 0
+        for blog in blogs:
+            blogs_count += 1
+
+        return blogs_count
+    
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    blog = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,blog):
+        comments = Comment.query.filter_by(blog_id=blog).all()
+        return comments
