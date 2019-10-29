@@ -4,12 +4,18 @@
 
 {%block styles%}
     {{ super() }}
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Ranga" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 {%endblock%}
 <!-- Content block -->
 {%block content%}
-<div class="container" style="font-family: 'Indie Flower', cursive;">
+<div class="container" style="font-family: 'Josefin Slab', serif;">
+    <a href="{{url_for('main.index')}}">
+        <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-chevron-left" ></span> Back
+            </button>
+            </a>
     <div class="card" style="margin-top: 30px">
         <h3 class="card-header">{{blog.blog_title}}</h3>
         

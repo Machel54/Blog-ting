@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    QUOTES_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+    QUOTE_BASE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://machel:jkl@localhost/blog'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
@@ -12,7 +12,7 @@ class Config:
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 class ProdConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class DevConfig(Config):
     pass
